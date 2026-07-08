@@ -10,11 +10,22 @@
  * @param {number} [body.speed] - Kecepatan bicara (0.5 - 2.0). Default: 1.0.
  * @param {number} [body.volume] - Volume musik latar (0.1 - 1.0). Default: 0.3.
  * @example
- * const evtSource = new EventSource('/api/ai/dracin');
- * evtSource.addEventListener('fact', (e) => console.log('Fakta:', JSON.parse(e.data).fact));
- * evtSource.addEventListener('status', (e) => console.log('Status:', JSON.parse(e.data).message));
- * evtSource.addEventListener('result', (e) => console.log('Hasil:', JSON.parse(e.data)));
- * evtSource.addEventListener('error', (e) => console.log('Error:', JSON.parse(e.data).message));
+ * // Contoh request
+ * const res = await fetch('/api/ai/dracin', {
+ *   method: 'POST',
+ *   headers: { 'Content-Type': 'application/json' },
+ *   body: JSON.stringify({
+ *     "text": "Halo, selamat datang di dunia drama China.",
+ *     "music": true,
+ *     "speed": 1.0,
+ *     "volume": 0.3
+ *   })
+ * });
+ * // Response berupa SSE Stream:
+ * // event: status  { "message": "Memproses teks menjadi suara..." }
+ * // event: fact    { "fact": "Kumis kucing..." }
+ * // event: status  { "message": "Mengupload audio..." }
+ * // event: result  { "success": true, "result": { "text": "...", "audio": "..." } }
  */
 
 import { reportError } from '../../../../lib/errorLogger';
