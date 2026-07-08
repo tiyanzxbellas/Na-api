@@ -1,0 +1,175 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Fira+Code&display=swap');
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css');
+@import url('https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+        
+/* THEME VARIABLES - Optimized Colors */
+:root {
+    /* Main Background: Darker, cleaner */
+    --bg-main: #09090b; 
+    
+    /* Content/Card Backgrounds: Subtle elevation */
+    --bg-content: #18181b;
+    --bg-card: #121215;
+    --bg-input: #18181b;
+    --bg-code: #000000;
+    
+    /* Text Colors: High contrast for readability */
+    --text-primary: #fafafa;
+    --text-secondary: #a1a1aa;
+    --text-muted: #71717a;
+    
+    /* Borders: Low opacity for subtlety */
+    --border-color: #27272a;
+    --border-color-light: #3f3f46;
+    
+    /* Accents: Pink/Rose for distinct identity */
+    --accent-color: #ec4899; /* Pink 500 */
+    --accent-color-dark: #db2777; /* Pink 600 */
+    --accent-color-darker: #be185d; /* Pink 700 */
+    --accent-text: #ffffff;
+}
+
+/* BASE STYLES */
+html, body {
+    height: 100%;
+    overscroll-behavior-y: none;
+}
+
+body { 
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--bg-main); 
+    color: var(--text-secondary);
+    transition: background-color 0.3s, color 0.3s;
+    overflow-x: hidden;
+    -webkit-tap-highlight-color: transparent;
+    text-rendering: optimizeLegibility;
+}
+
+.font-mono { font-family: 'Fira Code', monospace; }
+
+/* OPTIMIZED BACKGROUND ANIMATION for Low-End Devices */
+.background-animation {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: -1;
+    /* Static gradient is much cheaper than animating radial gradients */
+    background: 
+        radial-gradient(circle at 15% 50%, rgba(236, 72, 153, 0.08), transparent 25%),
+        radial-gradient(circle at 85% 30%, rgba(59, 130, 246, 0.08), transparent 25%);
+    pointer-events: none;
+    will-change: transform;
+}
+
+/* UTILITY CLASSES */
+.bg-main { background-color: var(--bg-main); }
+.bg-content { background-color: var(--bg-content); }
+.bg-card { background-color: var(--bg-card); }
+.bg-input { background-color: var(--bg-input); }
+.hljs, .bg-code { background-color: var(--bg-code) !important; color: #d1d5db; }
+.text-primary { color: var(--text-primary); }
+.text-secondary { color: var(--text-secondary); }
+.text-muted { color: var(--text-muted); }
+.border-default { border-color: var(--border-color); }
+.border-light { border-color: var(--border-color-light); }
+.text-accent { color: var(--text-accent); }
+.border-accent { border-color: var(--accent-color-dark); }
+.bg-accent { background-color: var(--accent-color-dark); color: var(--accent-text); }
+.bg-accent-hover:hover { background-color: var(--accent-color-darker); }
+
+/* Native-like Card Styles */
+.native-card {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 1rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
+    /* Improve performance by avoiding layout thrashing */
+    transform: translateZ(0);
+}
+.native-card:active {
+    transform: scale(0.99);
+    transition: transform 0.1s;
+}
+
+/* Animations */
+@keyframes slideUp {
+    from { transform: translateY(100%); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+.animate-slide-up {
+    animation: slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+.animate-fade-in { animation: fadeIn 0.4s ease-out forwards; }
+
+@keyframes slideInRight {
+    from { transform: translateX(100%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+@keyframes slideOutRight {
+    from { transform: translateX(0); opacity: 1; }
+    to { transform: translateX(100%); opacity: 0; }
+}
+.animate-slide-in-right { animation: slideInRight 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+.animate-slide-out-right { animation: slideOutRight 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+
+/* Custom scrollbar */
+::-webkit-scrollbar { width: 4px; height: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border-color); border-radius: 2px; }
+
+/* Gradient Text */
+.gradient-text {
+    background: linear-gradient(135deg, #f472b6 0%, #a855f7 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Prose for Blog/Content */
+.prose-styles { font-size: 0.95rem; line-height: 1.7; color: var(--text-secondary); }
+.prose-styles h1, .prose-styles h2, .prose-styles h3 { color: var(--text-primary); font-weight: 700; margin-top: 1.5em; margin-bottom: 0.5em; }
+.prose-styles p { margin-bottom: 1em; }
+.prose-styles strong { color: var(--text-primary); }
+.prose-styles a { color: var(--accent-color); text-decoration: none; }
+.prose-styles img { border-radius: 0.75rem; margin: 1em 0; width: 100%; height: auto; }
+.prose-styles pre { border-radius: 0.5rem; margin: 1em 0; background: #000; padding: 1em; overflow-x: auto; }
+.prose-styles code { font-family: 'Fira Code', monospace; font-size: 0.85em; background: rgba(255,255,255,0.1); padding: 0.2em 0.4em; rounded: 0.25em; }
+.prose-styles pre code { background: transparent; padding: 0; color: inherit; }
+
+/* Bottom Nav Active State */
+.bottom-nav-active {
+    color: var(--text-primary);
+}
+.bottom-nav-active .nav-icon-wrapper {
+    background-color: var(--accent-color-dark);
+    color: white;
+    box-shadow: 0 0 15px rgba(236, 72, 153, 0.3);
+}
+
+/* NProgress */
+#nprogress .bar { background: var(--accent-color) !important; height: 3px !important; }
+#nprogress .peg { box-shadow: 0 0 10px var(--accent-color), 0 0 5px var(--accent-color) !important; }
+
+/* Loader */
+.lightning-loader {
+    position: fixed; top: 15px; right: 20px; z-index: 9999;
+    pointer-events: none; opacity: 0; transition: opacity 0.3s ease;
+    display: flex; align-items: center; justify-content: center;
+}
+html.nprogress-busy .lightning-loader { opacity: 1; }
+.lightning-icon { font-size: 1.2rem; color: #fbbf24; filter: drop-shadow(0 0 8px #fbbf24); animation: flashBolt 0.5s infinite alternate; z-index: 2; }
+.lightning-trail {
+    position: absolute; width: 32px; height: 32px; border-radius: 50%;
+    border: 2px solid transparent; border-top-color: #fcd34d; border-right-color: transparent;
+    animation: spinTrail 0.8s linear infinite; box-shadow: 0 0 10px rgba(251, 191, 36, 0.3);
+}
+@keyframes flashBolt { 0% { opacity: 0.7; transform: scale(0.9); } 100% { opacity: 1; transform: scale(1.15); filter: drop-shadow(0 0 15px #fbbf24); } }
+@keyframes spinTrail { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
