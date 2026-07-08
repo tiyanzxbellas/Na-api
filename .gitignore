@@ -96,6 +96,15 @@ compare-*.html
 github_push.sh
 push.sh
 
+# Git credential helpers (potentially leaked by subagents)
+.git-creds
+.git-push.sh
+_commit.sh
+_push.sh
+askpass.sh
+creds.txt
+.git-askpass*
+
 # Pico workspace infrastructure
 cron/
 memory/
