@@ -81,8 +81,24 @@ git-*.sh
 # Test files
 test_*.js
 test_*.ts
+test-*
 
 # Internal docs (not for public repo)
 AGENTS.md
 GEMINI.md
 replit.md
+
+# Workspace-specific files
+HEARTBEAT.md
+heartbeat.log
+latest_q.html
+compare-*.html
+github_push.sh
+push.sh
+
+# Pico workspace infrastructure
+cron/
+memory/
+sessions/
+state/
+token.txt
